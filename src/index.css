@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens (from Kimi) ─── */
+:root {
+  --bg-primary: #F6F6F2;
+  --bg-secondary: #0B1E4A;
+  --accent: #D93A3A;
+  --accent-blue: #2E5AAC;
+  --ink: #111111;
+  --muted: #6B6F76;
+  --card-radius: 28px;
+  --card-shadow: 0 18px 40px rgba(0,0,0,0.08);
+  --stamp-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: auto; }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #F6F6F2; }
+  ::-webkit-scrollbar-thumb { background: rgba(217,58,58,0.3); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(217,58,58,0.6); }
+
+  ::selection { background: rgba(217,58,58,0.15); }
+}
+
+@layer components {
+  /* Kimi section card */
+  .section-card {
+    background: white;
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+  }
+
+  /* Kimi stamp circle */
+  .stamp-circle {
+    border-radius: 9999px;
+    border: 10px solid white;
+    box-shadow: var(--stamp-shadow);
+    transition: transform 0.3s ease;
+  }
+  .stamp-circle:hover { transform: scale(1.02); }
+
+  /* Kimi highlight underline */
+  .highlight-red {
+    position: relative;
+    display: inline-block;
+  }
+  .highlight-red::after {
+    content: '';
+    position: absolute;
+    left: -4px; right: -4px; bottom: 2px;
+    height: 12px;
+    background: var(--accent);
+    opacity: 0.2;
+    z-index: -1;
+    border-radius: 4px;
+    transform-origin: left;
+    animation: highlightGrow 0.6s ease-out forwards;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { background: #c43333; box-shadow: 0 8px 24px rgba(217,58,58,0.3); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    border: 2px solid rgba(17,17,17,0.12);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-navy {
+    background: var(--bg-secondary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .btn-navy:hover { background: #0d2355; }
+
+  /* Labels */
+  .text-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  /* Grain overlay (from Kimi) */
+  .grain-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* Portal / dark surface */
+  .portal-surface {
+    background: #06090F;
+    color: white;
+  }
+  .portal-card {
+    background: #0A0E1A;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+  }
+  .portal-gold { color: #C9A84C; }
+  .portal-gold-bg { background: linear-gradient(135deg, #C9A84C, #E8C96A); }
+}
+
+@keyframes highlightGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow { animation: rotate 8s linear infinite; }
+.animate-fade-up { animation: fadeUp 0.6s ease-out forwards; }
+
+/* Section will-change for GSAP */
+section { will-change: transform; }
+
+/* Feature card hover */
+.feature-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+}
+
+/* Pricing card hover */
+.pricing-card {
+  transition: transform 0.2s ease;
+}
+.pricing-card:hover { transform: translateY(-4px); }
+
+@media (max-width: 768px) {
+  .section-card {
+    left: 4vw !important;
+    width: 92vw !important;
+  }
+  .stamp-circle {
+    width: 200px !important;
+    height: 200px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
